@@ -1,0 +1,11 @@
+{
+  "company.tagline": "Dentistry that starts with listening",
+  "company.intro": "A family-run practice that has looked after the same neighbourhood for twelve years.",
+  "company.history": "Brightside opened in a single room above a pharmacy.\n\nToday it has three treatment rooms, but the promise is the same: no surprises on the bill and no rushed appointments.",
+  "company.history_image": { "url": "https://example.com/images/founders.jpg", "alt": "The two founding dentists outside the original clinic" },
+  "team.members": [
+    { "title": "Dr. Lina Cruz", "text": "Principal dentist. Restorative and implant work." },
+    { "title": "Dr. Paolo Reyes", "text": "Family and paediatric dentistry." },
+    { "title": "Mara Santos", "text": "Practice manager. Scheduling and treatment plans." }
+  ]
+}

@@ -1,0 +1,86 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/MicoleKurt/elementor-layout-compiler/schemas/brand_blueprint.schema.json",
+  "title": "brand_blueprint",
+  "description": "Design tokens extracted from discovery inputs (screenshots, brand PDFs, briefs). Produced by a vision model, then validated here before anything is built from it.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "client_id", "brand_name", "colors", "typography", "spacing", "radii", "buttons"],
+  "properties": {
+    "schema_version": { "const": "1.0" },
+    "client_id": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]{1,62}$" },
+    "brand_name": { "type": "string", "minLength": 1, "maxLength": 120 },
+    "colors": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["primary", "secondary", "accent", "background", "surface", "text", "text_muted"],
+      "properties": {
+        "primary": { "$ref": "#/$defs/hex" },
+        "secondary": { "$ref": "#/$defs/hex" },
+        "accent": { "$ref": "#/$defs/hex" },
+        "background": { "$ref": "#/$defs/hex" },
+        "surface": { "$ref": "#/$defs/hex" },
+        "text": { "$ref": "#/$defs/hex" },
+        "text_muted": { "$ref": "#/$defs/hex" }
+      }
+    },
+    "typography": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["heading_font", "body_font", "scale", "heading_weight", "body_weight", "line_height"],
+      "properties": {
+        "heading_font": { "type": "string", "minLength": 1, "maxLength": 80 },
+        "body_font": { "type": "string", "minLength": 1, "maxLength": 80 },
+        "heading_weight": { "type": "integer", "minimum": 100, "maximum": 900, "multipleOf": 100 },
+        "body_weight": { "type": "integer", "minimum": 100, "maximum": 900, "multipleOf": 100 },
+        "line_height": { "type": "number", "minimum": 1.0, "maximum": 2.5 },
+        "scale": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["h1", "h2", "h3", "h4", "body"],
+          "properties": {
+            "h1": { "type": "integer", "minimum": 24, "maximum": 120 },
+            "h2": { "type": "integer", "minimum": 20, "maximum": 96 },
+            "h3": { "type": "integer", "minimum": 16, "maximum": 64 },
+            "h4": { "type": "integer", "minimum": 14, "maximum": 40 },
+            "body": { "type": "integer", "minimum": 12, "maximum": 24 }
+          }
+        }
+      }
+    },
+    "spacing": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["grid_unit", "section_padding_y", "gutter", "container_max_width", "gap"],
+      "properties": {
+        "grid_unit": { "type": "integer", "minimum": 2, "maximum": 16 },
+        "section_padding_y": { "type": "integer", "minimum": 0, "maximum": 240 },
+        "gutter": { "type": "integer", "minimum": 0, "maximum": 80 },
+        "container_max_width": { "type": "integer", "minimum": 640, "maximum": 1920 },
+        "gap": { "type": "integer", "minimum": 0, "maximum": 96 }
+      }
+    },
+    "radii": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["container", "button", "image"],
+      "properties": {
+        "container": { "type": "integer", "minimum": 0, "maximum": 64 },
+        "button": { "type": "integer", "minimum": 0, "maximum": 64 },
+        "image": { "type": "integer", "minimum": 0, "maximum": 64 }
+      }
+    },
+    "buttons": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["style", "uppercase"],
+      "properties": {
+        "style": { "enum": ["solid", "outline"] },
+        "uppercase": { "type": "boolean" }
+      }
+    }
+  },
+  "$defs": {
+    "hex": { "type": "string", "pattern": "^#[0-9a-fA-F]{6}$" }
+  }
+}

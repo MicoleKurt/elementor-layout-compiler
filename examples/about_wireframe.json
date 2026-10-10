@@ -1,0 +1,29 @@
+{
+  "page": { "title": "About", "slug": "about" },
+  "sections": [
+    {
+      "type": "hero",
+      "heading": "slot:company.tagline",
+      "subheading": "slot:company.intro",
+      "cta": { "label": "Meet the team", "url": "#team" }
+    },
+    {
+      "type": "text_image",
+      "heading": "Our story",
+      "body": "slot:company.history",
+      "image": "slot:company.history_image",
+      "image_side": "right"
+    },
+    {
+      "type": "feature_grid",
+      "heading": "The team",
+      "columns": 3,
+      "items": "slot:team.members"
+    },
+    {
+      "type": "cta_band",
+      "heading": "Come and say hello",
+      "cta": { "label": "Book a visit", "url": "/contact" }
+    }
+  ]
+}

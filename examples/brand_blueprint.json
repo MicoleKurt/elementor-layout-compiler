@@ -1,0 +1,25 @@
+{
+  "schema_version": "1.0",
+  "client_id": "brightside-dental",
+  "brand_name": "Brightside Dental (fictional sample client)",
+  "colors": {
+    "primary": "#0B5FFF",
+    "secondary": "#0A2540",
+    "accent": "#00B894",
+    "background": "#FFFFFF",
+    "surface": "#F3F6FB",
+    "text": "#0A2540",
+    "text_muted": "#475467"
+  },
+  "typography": {
+    "heading_font": "Inter",
+    "body_font": "Inter",
+    "heading_weight": 700,
+    "body_weight": 400,
+    "line_height": 1.5,
+    "scale": { "h1": 56, "h2": 40, "h3": 24, "h4": 18, "body": 17 }
+  },
+  "spacing": { "grid_unit": 8, "section_padding_y": 96, "gutter": 24, "container_max_width": 1200, "gap": 24 },
+  "radii": { "container": 16, "button": 10, "image": 12 },
+  "buttons": { "style": "solid", "uppercase": false }
+}

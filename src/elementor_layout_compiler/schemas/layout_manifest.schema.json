@@ -1,0 +1,164 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/MicoleKurt/elementor-layout-compiler/schemas/layout_manifest.schema.json",
+  "title": "layout_manifest",
+  "description": "The only thing a language model is allowed to emit. It is small, closed and validated: the model never writes Elementor JSON, only this manifest. The compiler turns it into _elementor_data deterministically.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "page", "sections"],
+  "properties": {
+    "schema_version": { "const": "1.0" },
+    "page": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["title", "slug"],
+      "properties": {
+        "title": { "type": "string", "minLength": 1, "maxLength": 140 },
+        "slug": { "type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$", "maxLength": 80 }
+      }
+    },
+    "sections": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 20,
+      "items": {
+        "oneOf": [
+          { "$ref": "#/$defs/hero" },
+          { "$ref": "#/$defs/feature_grid" },
+          { "$ref": "#/$defs/text_image" },
+          { "$ref": "#/$defs/cta_band" },
+          { "$ref": "#/$defs/testimonials" },
+          { "$ref": "#/$defs/faq" }
+        ]
+      }
+    }
+  },
+  "$defs": {
+    "heading": { "type": "string", "minLength": 1, "maxLength": 140 },
+    "short_text": { "type": "string", "minLength": 1, "maxLength": 400 },
+    "body_text": { "type": "string", "minLength": 1, "maxLength": 4000 },
+    "url": { "type": "string", "maxLength": 2048, "pattern": "^(https?://|mailto:|tel:|#|/)[^\\s<>\"']*$" },
+    "cta": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["label", "url"],
+      "properties": {
+        "label": { "type": "string", "minLength": 1, "maxLength": 60 },
+        "url": { "$ref": "#/$defs/url" }
+      }
+    },
+    "image": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["url", "alt"],
+      "properties": {
+        "url": { "$ref": "#/$defs/url" },
+        "alt": { "type": "string", "minLength": 1, "maxLength": 200 }
+      }
+    },
+    "hero": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "heading", "cta"],
+      "properties": {
+        "type": { "const": "hero" },
+        "heading": { "$ref": "#/$defs/heading" },
+        "subheading": { "$ref": "#/$defs/short_text" },
+        "cta": { "$ref": "#/$defs/cta" },
+        "image": { "$ref": "#/$defs/image" }
+      }
+    },
+    "feature_grid": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "heading", "columns", "items"],
+      "properties": {
+        "type": { "const": "feature_grid" },
+        "heading": { "$ref": "#/$defs/heading" },
+        "columns": { "enum": [2, 3, 4] },
+        "items": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 12,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["title", "text"],
+            "properties": {
+              "title": { "$ref": "#/$defs/heading" },
+              "text": { "$ref": "#/$defs/short_text" }
+            }
+          }
+        }
+      }
+    },
+    "text_image": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "heading", "body", "image"],
+      "properties": {
+        "type": { "const": "text_image" },
+        "heading": { "$ref": "#/$defs/heading" },
+        "body": { "$ref": "#/$defs/body_text" },
+        "image": { "$ref": "#/$defs/image" },
+        "image_side": { "enum": ["left", "right"] }
+      }
+    },
+    "cta_band": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "heading", "cta"],
+      "properties": {
+        "type": { "const": "cta_band" },
+        "heading": { "$ref": "#/$defs/heading" },
+        "cta": { "$ref": "#/$defs/cta" }
+      }
+    },
+    "testimonials": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "items"],
+      "properties": {
+        "type": { "const": "testimonials" },
+        "heading": { "$ref": "#/$defs/heading" },
+        "items": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 6,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["quote", "author"],
+            "properties": {
+              "quote": { "$ref": "#/$defs/short_text" },
+              "author": { "type": "string", "minLength": 1, "maxLength": 120 }
+            }
+          }
+        }
+      }
+    },
+    "faq": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "heading", "items"],
+      "properties": {
+        "type": { "const": "faq" },
+        "heading": { "$ref": "#/$defs/heading" },
+        "items": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 20,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["q", "a"],
+            "properties": {
+              "q": { "$ref": "#/$defs/heading" },
+              "a": { "$ref": "#/$defs/body_text" }
+            }
+          }
+        }
+      }
+    }
+  }
+}
